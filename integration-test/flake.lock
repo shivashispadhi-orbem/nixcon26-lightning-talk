@@ -1,0 +1,135 @@
+{
+  "nodes": {
+    "actuator-service": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "actuator-service",
+        "lastModified": 1789905222,
+        "narHash": "sha256-JSgxkmAMz2rdnOoLxcctr7lFls4MiAEoWbprsgXa2q8=",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "rev": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+        "type": "github"
+      },
+      "original": {
+        "dir": "actuator-service",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "type": "github"
+      }
+    },
+    "controller-service": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "controller-service",
+        "lastModified": 1789905222,
+        "narHash": "sha256-JSgxkmAMz2rdnOoLxcctr7lFls4MiAEoWbprsgXa2q8=",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "rev": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+        "type": "github"
+      },
+      "original": {
+        "dir": "controller-service",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1764521362,
+        "narHash": "sha256-M101xMtWdF1eSD0xhiR8nG8CXRlHmv6V+VoY65Smwf4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "871b9fd269ff6246794583ce4ee1031e1da71895",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "process-compose-flake": {
+      "locked": {
+        "lastModified": 1782060835,
+        "narHash": "sha256-Q8HH2t1l3MITtWCWY4ytcH5F/Q7aAHo3Iq/QTMAKTe0=",
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "rev": "464ff6880737f063c3f0d3d2c7781fda9190868f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Platonic-Systems",
+        "repo": "process-compose-flake",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "actuator-service": "actuator-service",
+        "controller-service": "controller-service",
+        "nixpkgs": "nixpkgs",
+        "process-compose-flake": "process-compose-flake",
+        "sensor-service": "sensor-service",
+        "telemetry-service": "telemetry-service"
+      }
+    },
+    "sensor-service": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "sensor-service",
+        "lastModified": 1789905222,
+        "narHash": "sha256-JSgxkmAMz2rdnOoLxcctr7lFls4MiAEoWbprsgXa2q8=",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "rev": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+        "type": "github"
+      },
+      "original": {
+        "dir": "sensor-service",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "type": "github"
+      }
+    },
+    "telemetry-service": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "telemetry-service",
+        "lastModified": 1789905222,
+        "narHash": "sha256-JSgxkmAMz2rdnOoLxcctr7lFls4MiAEoWbprsgXa2q8=",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "rev": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+        "type": "github"
+      },
+      "original": {
+        "dir": "telemetry-service",
+        "owner": "shivashispadhi-orbem",
+        "repo": "nixcon26-lightning-talk",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

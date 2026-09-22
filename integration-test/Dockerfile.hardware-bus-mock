@@ -1,0 +1,3 @@
+FROM python:3.11-slim
+COPY hardware_bus_mock.py /app/hardware_bus_mock.py
+CMD ["python3", "/app/hardware_bus_mock.py"]

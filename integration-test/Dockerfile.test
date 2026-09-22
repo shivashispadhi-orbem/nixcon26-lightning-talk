@@ -1,0 +1,3 @@
+FROM python:3.11-slim
+COPY tests/test_control_loop.py /app/test_control_loop.py
+CMD ["python3", "-u", "/app/test_control_loop.py"]

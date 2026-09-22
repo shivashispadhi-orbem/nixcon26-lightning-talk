@@ -1,0 +1,103 @@
+# The benchmark baseline, equivalent to `nix run .#test`:
+#
+#   docker compose up --build --abort-on-container-exit --exit-code-from test
+#
+# Every path below is a local filesystem path, not a version, so everyone
+# running this needs the same checkouts at the same revisions.
+# integration-test/flake.nix pins all four instead.
+
+# python:3.11-slim ships no curl/wget, so probe with the interpreter itself.
+x-healthcheck: &healthcheck
+  interval: 1s
+  timeout: 2s
+  retries: 30
+  start_period: 1s
+
+x-bus: &bus
+  HARDWARE_BUS_URL: http://hardware-bus-mock:9000
+
+x-upstream: &upstream
+  SENSOR_SERVICE_URL: http://sensor-service:8001
+  ACTUATOR_SERVICE_URL: http://actuator-service:8002
+
+x-needs-bus: &needs-bus
+  hardware-bus-mock: {condition: service_healthy}
+
+x-needs-sensing: &needs-sensing
+  sensor-service: {condition: service_healthy}
+  actuator-service: {condition: service_healthy}
+
+x-needs-all: &needs-all
+  sensor-service: {condition: service_healthy}
+  actuator-service: {condition: service_healthy}
+  controller-service: {condition: service_healthy}
+  telemetry-service: {condition: service_healthy}
+
+services:
+  hardware-bus-mock:
+    build: {context: ./integration-test, dockerfile: Dockerfile.hardware-bus-mock}
+    ports: ["9000:9000"]
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:9000/healthz',timeout=2)"]
+
+  sensor-service:
+    build: ./sensor-service
+    environment: *bus
+    ports: ["8001:8001"]
+    depends_on: *needs-bus
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8001/healthz',timeout=2)"]
+
+  actuator-service:
+    build: ./actuator-service
+    environment: *bus
+    ports: ["8002:8002"]
+    depends_on: *needs-bus
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8002/healthz',timeout=2)"]
+
+  controller-service:
+    build: ./controller-service
+    environment:
+      <<: *upstream
+      # Same tight loop the nix leg uses, so the two are comparable.
+      CONTROLLER_POLL_INTERVAL_SECONDS: "0.5"
+    ports: ["8003:8003"]
+    depends_on: *needs-sensing
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8003/healthz',timeout=2)"]
+
+  telemetry-service:
+    build: ./telemetry-service
+    environment:
+      <<: *upstream
+      CONTROLLER_SERVICE_URL: http://controller-service:8003
+      TELEMETRY_POLL_INTERVAL_SECONDS: "0.5"
+    ports: ["8004:8004"]
+    depends_on:
+      <<: *needs-sensing
+      controller-service: {condition: service_healthy}
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8004/healthz',timeout=2)"]
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    volumes:
+      - ./integration-test/provisioning/prometheus.docker.yml:/etc/prometheus/prometheus.yml:ro
+    ports: ["9090:9090"]
+    depends_on: *needs-all
+
+  # The same tests/test_control_loop.py the nix leg runs, pointed at DNS names
+  # instead of localhost, so the two legs measure the same thing.
+  test:
+    build: {context: ./integration-test, dockerfile: Dockerfile.test}
+    environment:
+      <<: [*bus, *upstream]
+      CONTROLLER_SERVICE_URL: http://controller-service:8003
+      TELEMETRY_SERVICE_URL: http://telemetry-service:8004
+    depends_on: *needs-all

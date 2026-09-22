@@ -1,0 +1,5 @@
+.data/
+result
+result-*
+.direnv/
+__pycache__/

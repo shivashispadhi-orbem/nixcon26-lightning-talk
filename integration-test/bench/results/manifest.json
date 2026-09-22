@@ -1,0 +1,34 @@
+{
+  "recorded_utc": "2026-09-22T09:59:28Z",
+  "machine": {
+    "os": "Darwin 24.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Pro",
+    "cores": "11",
+    "ram_gb": 18,
+    "on_ac_power": false
+  },
+  "toolchain": {
+    "nix": "nix (Nix) 2.34.0",
+    "docker": "28.0.1",
+    "compose": "2.33.1-desktop.1"
+  },
+  "nix_closure": {
+    "size_mb": 461,
+    "store_paths": 32
+  },
+  "services_from": "working tree (--override-input), not the locked revs",
+  "locked_inputs": {
+    "actuator-service": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+    "controller-service": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+    "nixpkgs": "871b9fd269ff6246794583ce4ee1031e1da71895",
+    "process-compose-flake": "464ff6880737f063c3f0d3d2c7781fda9190868f",
+    "sensor-service": "79d8aa4f5549414402765ddf11ebba0eadb387ac",
+    "telemetry-service": "79d8aa4f5549414402765ddf11ebba0eadb387ac"
+  },
+  "docker_images": {
+    "base": "python:3.11-slim",
+    "prometheus": "prom/prometheus:v2.55.1",
+    "registry": "docker.io"
+  }
+}

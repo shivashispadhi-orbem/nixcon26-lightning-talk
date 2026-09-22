@@ -1,0 +1,30 @@
+local_inputs := "--override-input sensor-service path:../sensor-service " + \
+                "--override-input actuator-service path:../actuator-service " + \
+                "--override-input controller-service path:../controller-service " + \
+                "--override-input telemetry-service path:../telemetry-service"
+
+compose := "docker compose -f ../docker-compose.yml --project-directory .."
+
+test:
+	nix run .#test {{local_inputs}}
+
+test-pinned:
+	nix run .#test
+
+test-docker:
+	{{compose}} up --build --abort-on-container-exit --exit-code-from test
+	{{compose}} down -v --remove-orphans
+
+bench: bench-nix bench-docker bench-summary
+
+bench-nix:
+	bench/bench.sh nix-hot
+
+bench-docker:
+	bench/bench.sh docker-hot
+
+bench-summary:
+	bench/bench.sh summary
+
+bench-manifest:
+	bench/manifest.sh

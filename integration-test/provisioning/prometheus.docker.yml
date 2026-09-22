@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 2s
+
+scrape_configs:
+  - job_name: sensor-service
+    static_configs:
+      - targets: ["sensor-service:8001"]
+  - job_name: actuator-service
+    static_configs:
+      - targets: ["actuator-service:8002"]
+  - job_name: controller-service
+    static_configs:
+      - targets: ["controller-service:8003"]
+  - job_name: telemetry-service
+    static_configs:
+      - targets: ["telemetry-service:8004"]
