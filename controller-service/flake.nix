@@ -1,5 +1,5 @@
 {
-  description = "Nix flake for controller-service (Controls team).";
+  description = "Nix flake for controller-service.";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.11";
   };

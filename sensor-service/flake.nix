@@ -1,5 +1,5 @@
 {
-  description = "Nix flake for sensor-service (Sensing team).";
+  description = "Nix flake for sensor-service.";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.11";
   };

@@ -18,4 +18,4 @@ See `../README.md` for what it asserts.
 assertions' status. The process named `test` in `process-compose.nix` creates
 it.
 
-`cli.preHook` wipes `.data` on every run, so each run is ephemeral.
+`cli.preHook` wipes `.data` on every run, so each run is clean.

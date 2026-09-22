@@ -7,7 +7,7 @@ For simplicity, they don't use the uv2nix/pyproject-nix machinery, the services 
 > [!CAUTION]  
 > Most of this codebase was LLM generated, although reviewed by me to make sure it represents reality of our internal efforts @ Orbem.
 
-There are 4 services, each owned by a different team, each packaged by the `flake.nix`
+There are 4 services, each potentially owned by a different team, and packaged by the `flake.nix`
 next to its own source. One command starts all of them plus their sidecars,
 runs the cross-service assertions, and tears the stack down:
 
@@ -118,9 +118,6 @@ cd integration-test
 just bench
 just bench-manifest
 ```
-
-Both legs are timed from "I want to test this" to "the assertions exited 0",
-not to "the command returned".
 
 | leg | dependencies come from | |
 |---|---|---|
