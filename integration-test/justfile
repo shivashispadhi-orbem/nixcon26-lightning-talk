@@ -11,6 +11,9 @@ test:
 test-pinned:
 	nix run .#test
 
+up:
+	nix run .#default {{local_inputs}} -- up test --tui=true
+
 test-docker:
 	{{compose}} up --build --abort-on-container-exit --exit-code-from test
 	{{compose}} down -v --remove-orphans

@@ -6,6 +6,7 @@ here as a flake input, with a hardware-bus mock and Prometheus.
 ```sh
 just test          # services from the working tree
 just test-pinned   # services from flake.lock (what CI runs)
+just up            # same stack in the process-compose TUI, logs stay up after the test
 just bench         # times the nix leg against docker, see bench/README.md
 ```
 
