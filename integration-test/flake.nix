@@ -75,7 +75,7 @@
         {
           test = {
             type = "app";
-            program = "${testPackage}/bin/${testPackage.meta.mainProgram or "process-compose-test"}";
+            program = "${testPackage}/bin/${testPackage.meta.mainProgram}";
           };
         }
       );
